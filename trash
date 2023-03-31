@@ -1,0 +1,159 @@
+./srcPics .png 1440 720
+./fromCamera .jpeg  2160 3840
+
+//    uint maxPos = 0;
+//    long unsigned int max = 0;
+//    dirent* entryTemp;
+//    entryTemp->d_ino = 0;
+//    entryTemp->d_off = 0;
+//    entryTemp->d_reclen = 0;
+//    entryTemp->d_type = 0;
+//    strcpy(entryTemp->d_name, "\n");
+
+
+//    for(uint start = 0; start < foundFilesCount - 1; start++)
+//    {
+//        max = entryArr[start].d_ino;
+//        maxPos = start;
+
+//        for(uint i = start; i < foundFilesCount; i++)
+//        {
+//            if (entryArr[i].d_ino > max)
+//            {
+//                max = entryArr[i].d_ino;
+//                maxPos = i;
+//                printf("d_ino = %i\n", entryArr[i].d_ino);
+//            }
+//        }
+
+//        if (maxPos != start)
+//        {
+//            entryTemp->d_ino = entryArr[start].d_ino;
+//            entryArr[start].d_ino = entryArr[maxPos].d_ino;
+//            entryArr[maxPos].d_ino = entryTemp->d_ino;
+
+//            entryTemp->d_off = entryArr[start].d_off;
+//            entryArr[start].d_off = entryArr[maxPos].d_off;
+//            entryArr[maxPos].d_off = entryTemp->d_off;
+
+//            entryTemp->d_reclen = entryArr[start].d_reclen;
+//            entryArr[start].d_reclen = entryArr[maxPos].d_reclen;
+//            entryArr[maxPos].d_reclen = entryTemp->d_reclen;
+
+//            entryTemp->d_type = entryArr[start].d_type;
+//            entryArr[start].d_type = entryArr[maxPos].d_type;
+//            entryArr[maxPos].d_type = entryTemp->d_type;
+
+//            strcpy(entryTemp->d_name, entryArr[start].d_name);
+//            strcpy(entryArr[start].d_name, entryArr[maxPos].d_name);
+//            strcpy(entryArr[maxPos].d_name, entryTemp->d_name);
+
+//            //printf("maxPos = %i\n", maxPos);
+//       }
+//    }
+
+
+//int main (void)
+//{
+//    cvNamedWindow("capture");
+
+//    // получаем любую подключённую камеру
+//    CvCapture *capture = cvCreateCameraCapture(CV_CAP_ANY);
+//    assert(capture!=0);
+
+//    const char *filename = "capture.avi";
+
+//    // частота кадров
+//    double fps = cvGetCaptureProperty (capture, CV_CAP_PROP_FPS);
+//   // double fps = 15;
+
+//    // размер картинки
+//    CvSize size = cvSize( (int)cvGetCaptureProperty( capture, CV_CAP_PROP_FRAME_WIDTH), (int)cvGetCaptureProperty( capture, CV_CAP_PROP_FRAME_HEIGHT));
+//    //CvSize size = cvSize(640, 480);
+
+//    CvVideoWriter *writer = cvCreateVideoWriter(filename, CV_FOURCC('M', 'J', 'P', 'G'), fps, size, 0);
+//    assert(writer!=0);
+
+//    IplImage *frame=0;
+
+//    while(true)
+//    {
+//        // получаем кадр
+//        frame = cvQueryFrame( capture );
+
+//        // сохраняем в файл
+//        cvWriteFrame(writer, frame);
+
+//        // показываем
+//        cvShowImage("capture", frame);
+//        char c = cvWaitKey(1);
+
+//        if (c == 27)
+//        { // если нажата ESC - выходим
+//            break;
+//        }
+//    }
+
+//    // освобождаем ресурсы
+//    cvReleaseCapture( &capture );
+//    cvReleaseVideoWriter(&writer);
+//    cvDestroyWindow("capture");
+//    return 0;
+//}
+
+
+
+//    Mat src;
+//    // use default camera as video source
+//    VideoCapture cap(0);
+//    // check if we succeeded
+//    if (!cap.isOpened())
+//    {
+//        cerr << "ERROR! Unable to open camera\n";
+//        return -1;
+//    }
+//    // get one frame from camera to know frame size and type
+//    cap >> src;
+//    // check if we succeeded
+//    if (src.empty())
+//    {
+//        cerr << "ERROR! blank frame grabbed\n";
+//        return -1;
+//    }
+//    bool isColor = (src.type() == CV_8UC3);
+//    //--- INITIALIZE VIDEOWRITER
+//    VideoWriter writer;
+//    int codec = VideoWriter::fourcc('M', 'J', 'P', 'G');  // select desired codec (must be available at runtime)
+//    double fps = 25.0;                          // framerate of the created video stream
+//    string filename = "./live.avi";             // name of the output video file
+//    writer.open(filename, codec, fps, src.size(), isColor);
+//    // check if we succeeded
+//    if (!writer.isOpened()) {
+//        cerr << "Could not open the output video file for write\n";
+//        return -1;
+//    }
+//    //--- GRAB AND WRITE LOOP
+//    cout << "Writing videofile: " << filename << endl
+//         << "Press any key to terminate" << endl;
+//    for (;;)
+//    {
+//        // check if we succeeded
+//        if (!cap.read(src)) {
+//            cerr << "ERROR! blank frame grabbed\n";
+//            break;
+//        }
+//        // encode the frame into the videofile stream
+//        writer.write(src);
+//        // show live and wait for a key with timeout long enough to show images
+//        imshow("Live", src);
+////        if (waitKey(5) >= 0)
+////            break;
+
+//        char c = cvWaitKey(5);
+//        if (c == 27)
+//        { // если нажата ESC - выходим
+//            break;
+//        }
+//    }
+//    // the videofile will be closed and released automatically in VideoWriter destructor
+//    return 0;
